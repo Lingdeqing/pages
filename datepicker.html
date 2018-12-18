@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        .picker{  width: 326px; border: 1px solid #e4e4e4;user-select: none;-webkit-user-select: none;}
+        .picker h2{text-align: center;font-size: 16px;line-height: 34px;font-weight: 500;border-bottom: 1px solid rgb(235, 238, 245);}
+        .picker .scroll{overflow-y: auto;}
+        .picker .months{margin:auto;width: 296px;}
+        .picker .month{clear: both;margin-top: 20px; border: 1px solid #e4e4e4;}
+        .picker h3{font-size: 16px;font-weight: 500;padding: 0 5px;line-height: 32px;text-align: center;cursor: pointer;color: #606266;border-bottom: 1px solid rgb(235, 238, 245);}
+        .picker .row{height: 36px;}
+        .picker .cell{float: left;width: 42px;height: 36px;line-height: 36px;text-align: center;font-size: 14px;color: #606266;} 
+        .picker .date{cursor: pointer;}
+        .picker .date span{display: inline-block;width: 24px; height: 24px;line-height: 24px;border-radius: 100%; }
+        .picker h3:hover,
+        .picker .date:hover{color: #409eff;}
+        .picker .date.current span{color: #fff;background-color: #409eff;}
+        .picker .date.inrange div{background-color: #f2f6fc;}
+        .picker .month.current{border-color: #409eff;}
+        .picker .month.current h3{color: #fff;background-color: #409eff;}
+        .picker .start-date div{border-radius: 15px 0 0 15px;}
+        .picker .end-date div{border-radius: 0 15px 15px 0;}
+    </style>
+</head>
+<body>
+    <div class="test" style="margin: 10px 0 0 10px;"></div>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+    function Picker(el, options){
+        this.$el = $(el);
+        this.options = $.extend({
+            year: new Date().getFullYear()
+        }, options);
+
+        this.$picker = null;
+        this.ctrlPressed = false;
+        this.isDragging = false;
+
+        this.render();
+        this.bind();
+    }
+    Picker.prototype = {
+        constructor: Picker,
+        render: function(){
+            var html = '<div class="picker">';
+            html += '<h2>'+this.options.year+'</h2>';
+            html += '<div class="scroll">';
+            html += '<div class="months">';
+            var dayHtml = '<div class="row">'+
+                    '<div class="cell">日</div>' +
+                    '<div class="cell">一</div>' +
+                    '<div class="cell">二</div>' +
+                    '<div class="cell">三</div>' +
+                    '<div class="cell">四</div>' +
+                    '<div class="cell">五</div>' +
+                    '<div class="cell">六</div>' +
+                '</div>';
+            var months = this.getDates(this.options.year);
+            for(var i = 0; i < months.length; i++){
+                var dates = months[i];
+                html += '<div class="month">'
+                html += '<h3>'+(1+i < 10 ? '0' + (1+i) : (1+i))+'</h3>';
+                html += dayHtml;
+                var firstDay = dates[0].getDay();
+                for(var j = 0; j < firstDay + dates.length;j ++){
+                    if(j === 0){
+                        html += '<div class="row">';
+                    } else if(j % 7 === 0){
+                        html += '</div><div class="row">';
+                    }
+
+                    if(j < firstDay){
+                        html += '<div class="cell"></div>';
+                    } else {
+                        html += '<div class="cell date"><div><span>'+dates[j - firstDay].getDate()+'</span></div></div>';
+                    }
+                }
+                html += '</div>'
+                html += '</div>'
+            }
+            html += '</div>';
+            html += '</div>';
+            html += '</div>';
+            this.$el.html(html);
+            this.$picker = this.$el.find('.picker');
+        },
+        getDates: function(year){
+            var months = [];
+            for(var i = 1; i <= 12; i++){
+                var dates = [];
+                var long = this.getMonthLong(year, i);   // 当月的天
+                for(var j = 1; j <= long; j++){
+                    dates.push(new Date(year, i - 1, j));
+                }
+                months.push(dates);
+            }
+            return months;
+        },
+        getMonthLong: function(year, month){ // 获取某个月的天数
+            var date = new Date(year, month, 0);
+            return date.getDate();
+        },
+        syncMonthState: function($month){  // 同步月份选中状态
+            var self = this, selectLen = 0;
+            $month.find('.date').each(function(){
+                if(self.isSelect($(this))){
+                    selectLen ++;
+                }
+            })
+            if(selectLen === $month.find('.date').length){
+                $month.addClass('current');
+            } else {
+                $month.removeClass('current');
+            }
+        },
+        isSelect($date){
+            return $date.is('.inrange') || $date.is('.current');
+        },
+        mergeRange(){   // 合并范围
+            var $dates = this.$picker.find('.date');
+            $dates.removeClass('start-date end-date');
+            for(var i = 0; i < $dates.length;){
+                var $start = $dates.eq(i);
+                if(this.isSelect($start)){
+                    for(var j = i; j < $dates.length; j++){
+                        if(!this.isSelect($dates.eq(j))) break;
+                    }
+                    if(i === j -1){ // 单独的一个点
+                        $start.removeClass('inrange');
+                    } else { // 选中范围
+                        for(var m = i; m < j && m < $dates.length; m++){
+                            if(m === i){
+                                $dates.eq(m).addClass('start-date inrange current');
+                            } else if(m === j-1 || m === $dates.length - 1){
+                                $dates.eq(m).addClass('end-date inrange current');
+                            } else {
+                                $dates.eq(m).removeClass('current').addClass('inrange');
+                            }
+                        }  
+                    }
+                    i = j+1;
+                } else {
+                    i++;
+                }
+            }
+        },
+        selectRange: function(){
+            var $dates = this.$picker.find('.date');
+            var startIndex = $dates.index(this.$startDate[0]);
+            var endIndex = $dates.index(this.$endDate[0]);
+            if(startIndex > endIndex){
+                var temp = startIndex;
+                startIndex = endIndex;
+                endIndex = temp;
+            }
+            $dates.each(function(i){
+                if(i >= startIndex && i <= endIndex){
+                    $(this).addClass('inrange currentRangeFlag');   // 选中并标记
+                } else {
+                    if($(this).is('.currentRangeFlag')){     // 只处理当前标记的
+                        $(this).removeClass('inrange currentRangeFlag current start-date end-date');
+                    }
+                }
+            })
+        },
+        bind: function(){
+            var self = this;
+
+            // resize
+            this.setSize();
+            $(window).resize(function(){
+                self.setSize();
+            });
+
+            $(document).on({
+                keydown: function(e){
+                    if(e.keyCode === 17){
+                        self.ctrlPressed = true;
+                    }
+                },
+                keyup: function(e){
+                    if(e.keyCode === 17){
+                        self.ctrlPressed = false;
+                    }
+                },
+            })
+
+            // 选择月份
+            this.$picker.on('click', 'h3', function(){
+                var $month = $(this).closest('.month').toggleClass('current');
+                if($month.is('.current')){
+                    $month.find('.date').addClass('current'); 
+                } else {
+                    $month.find('.date').removeClass('current inrange'); 
+                }
+                self.mergeRange();
+            });
+
+            // 选择日期
+            this.$picker.on('click', '.date', function(){
+                var $month = $(this).closest('.month');
+                if(!self.ctrlPressed) { // 拖拽选日期事件
+                    $(this).addClass('current');
+                    if(self.isDragging){
+                        $(this).addClass('end-date');
+                        self.isDragging = false;    // 结束拖选事件
+                        self.$picker.find('.currentRangeFlag').removeClass('currentRangeFlag'); // 移除当前标记
+                        self.mergeRange();
+                    } else {
+                        $(this).addClass('start-date');
+                        self.isDragging = true; // 开始拖选事件    
+                        self.$startDate = $(this);
+                    }
+                    self.$picker.find('.month').each(function(){
+                        self.syncMonthState($(this));
+                    })
+                } else {    // ctrl 多选日期
+                    $(this).toggleClass('current');
+                    if(!$(this).is('.current')){
+                        $(this).removeClass('inrange')
+                    }
+                    self.mergeRange();
+                    self.syncMonthState($month);
+                }
+            });
+
+            // 拖拽选日期
+            this.$picker.on('mouseenter', '.date', function(e){
+                if(!self.isDragging) return;
+                self.$endDate = $(this);
+                $(this).addClass('current end-date');
+                self.selectRange();
+            }).on('mouseleave', '.date', function(e){
+                if(!self.isDragging) return;
+                if(!$(this).is('.start-date')){
+                    $(this).removeClass('current end-date');
+                }
+            })
+
+            // 鼠标划出日历，计算选中
+            var $scroll =  self.$picker.find('.scroll');
+            $(document).on('mousemove', function(e){
+                if(!self.isDragging) return;
+
+                // 鼠标在上下边界时，滚动滚动条
+                var mousePos = self.getMousePos(e.originalEvent);
+                var pickerPos = self.$picker.offset();
+                if(mousePos.top >= pickerPos.top + self.$picker.outerHeight() - 50){    // 在下面时
+                    $scroll.scrollTop($scroll.scrollTop() + 20)
+                } else if(mousePos.top <= pickerPos.top + 50){   // 在上面时
+                    $scroll.scrollTop($scroll.scrollTop() - 20)
+                }
+            })
+
+            
+        },
+        setSize: function(){
+            var pickerHeight = $(window).height() - 50;
+            this.$picker.height(pickerHeight);
+            this.$picker.find('.scroll').height(pickerHeight - 2 - this.$picker.find('h2').outerHeight(true));
+        },
+        getMousePos: function (event) { // 鼠标距离文档左上角坐标
+            var e = event || window.event;
+            var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+            var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+            var x = e.pageX || e.clientX + scrollX;
+            var y = e.pageY || e.clientY + scrollY;
+            return { left: x, top: y };
+        }
+    }
+
+    new Picker('.test', {
+
+    })
+    </script>
+</body>
+</html>
