@@ -32,9 +32,11 @@
     <script src="jquery-3.3.1.min.js"></script>
     <script type="text/javascript">
     function Picker(el, options){
+        var currentYear = new Date().getFullYear();
         this.$el = $(el);
         this.options = $.extend({
-            year: new Date().getFullYear(),
+            years: [currentYear-2, currentYear -1, currentYear],
+            currentYear: currentYear,
             multiple: false // 是否多选
         }, options);
 
@@ -49,7 +51,16 @@
         constructor: Picker,
         render: function(){
             var html = '<div class="picker">';
-            html += '<h2>'+this.options.year+'</h2>';
+            html += '</div>';
+            this.$el.html(html);
+            this.$picker = this.$el.find('.picker');
+            this.renderYear(this.options.currentYear);
+        },
+        renderYear: function(currentYear){
+            var html = '';
+            html += '<h2><select>'+this.options.years.map((year) => 
+                '<option value="'+year+'" '+(year == currentYear ? 'selected': '')+ '>'+year+'</option>').join('')
+                +'</select></h2>';
             html += '<div class="scroll">';
             html += '<div class="months">';
             var dayHtml = '<div class="row">'+
@@ -61,7 +72,7 @@
                     '<div class="cell">五</div>' +
                     '<div class="cell">六</div>' +
                 '</div>';
-            var months = this.getDates(this.options.year);
+            var months = this.getDates(currentYear);
             for(var i = 0; i < months.length; i++){
                 var dates = months[i];
                 html += '<div class="month">'
@@ -86,9 +97,8 @@
             }
             html += '</div>';
             html += '</div>';
-            html += '</div>';
-            this.$el.html(html);
-            this.$picker = this.$el.find('.picker');
+            this.$picker.html(html);
+            this.setSize();
         },
         getDates: function(year){
             var months = [];
@@ -194,6 +204,12 @@
                 },
             })
 
+            // 切换年份
+            this.$picker.on('change', 'select', function(){
+                self.options.currentYear = $(this).val();
+                self.renderYear(self.options.currentYear);
+            })
+
             // 选择月份
             this.$picker.on('click', 'h3', function(){
                 var $month = $(this).closest('.month').toggleClass('current');
@@ -262,11 +278,11 @@
             })
 
             // 鼠标划出日历，计算选中
-            var $scroll =  self.$picker.find('.scroll');
             $(document).on('mousemove', function(e){
                 if(!self.isDragging) return;
 
                 // 鼠标在上下边界时，滚动滚动条
+                var $scroll =  self.$picker.find('.scroll');
                 var mousePos = self.getMousePos(e.originalEvent);
                 var pickerPos = self.$picker.offset();
                 if(mousePos.top >= pickerPos.top + self.$picker.outerHeight() - 50){    // 在下面时
