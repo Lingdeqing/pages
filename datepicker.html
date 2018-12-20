@@ -180,6 +180,7 @@
             })
         },
         unselectAll: function(){
+            this.$picker.find('.month').removeClass('current');
             this.$picker.find('.date').removeClass('inrange start-date end-date current');
         },
         bind: function(){
@@ -212,6 +213,9 @@
 
             // 选择月份
             this.$picker.on('click', 'h3', function(){
+                if(!self.options.multiple){ // 不能多选，则取消之前选中的
+                    self.unselectAll();
+                }
                 var $month = $(this).closest('.month').toggleClass('current');
                 if($month.is('.current')){
                     $month.find('.date').addClass('current'); 
@@ -219,19 +223,6 @@
                     $month.find('.date').removeClass('current inrange'); 
                 }
                 self.mergeRange();
-                if(!self.options.multiple){
-                    if($month.is('.current')){
-                        var $dates = self.$picker.find('.date');
-                        var $monthDates = $month.find('.date');
-                        if( !self.isSelect($dates.eq($dates.index($monthDates.first()) -1)) 
-                            && !self.isSelect($dates.eq($dates.index($monthDates.last()) +1))){ // 前后都没有连起来
-                            $month.siblings('.month').removeClass('current').find('.date').removeClass('current inrange start-date end-date');        
-                        }
-                    } else {
-                        $month.nextAll('.month').removeClass('current').find('.date').removeClass('current inrange start-date end-date');
-                    }
-                    
-                }
             });
 
             // 选择日期
