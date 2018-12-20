@@ -28,7 +28,18 @@
     </style>
 </head>
 <body>
-    <div class="test" style="margin: 10px 0 0 10px;"></div>
+    <div style="float:left;margin-right: 20px;">
+        <h1>多选</h1>
+        <div class="test1" style="margin: 10px 0 0 10px;"></div>
+    </div>
+    <div style="float:left;margin-right: 20px;">
+        <h1>多选(跨月取消)</h1>
+        <div class="test2" style="margin: 10px 0 0 10px;"></div>
+    </div>
+    <div style="float:left">
+        <h1>单选</h1>
+        <div class="test3" style="margin: 10px 0 0 10px;"></div>
+    </div>
     <script src="jquery-3.3.1.min.js"></script>
     <script type="text/javascript">
     function Picker(el, options){
@@ -37,11 +48,11 @@
         this.options = $.extend({
             years: [currentYear-2, currentYear -1, currentYear],
             currentYear: currentYear,
-            multiple: false // 是否多选
+            multiple: true, // 是否多选
+            cancelMode: 'not-cross-month'   // 取消不跨月
         }, options);
 
         this.$picker = null;
-        this.ctrlPressed = false;
         this.isDragging = false;
 
         this.render();
@@ -116,7 +127,7 @@
             var date = new Date(year, month, 0);
             return date.getDate();
         },
-        syncMonthState: function($month){  // 同步月份选中状态
+        _syncMonthState: function($month){  // 同步月份选中状态
             var self = this, selectLen = 0;
             $month.find('.date').each(function(){
                 if(self.isSelect($(this))){
@@ -127,6 +138,16 @@
                 $month.addClass('current');
             } else {
                 $month.removeClass('current');
+            }
+        },
+        syncMonthState: function($month){
+            if(!$month){
+                var self =this;
+                this.$picker.find('.month').each(function(){
+                    self._syncMonthState($(this));
+                })
+            } else {
+                this._syncMonthState($month);
             }
         },
         isSelect($date){
@@ -192,19 +213,6 @@
                 self.setSize();
             });
 
-            $(document).on({
-                keydown: function(e){
-                    if(e.keyCode === 17){
-                        self.ctrlPressed = true;
-                    }
-                },
-                keyup: function(e){
-                    if(e.keyCode === 17){
-                        self.ctrlPressed = false;
-                    }
-                },
-            })
-
             // 切换年份
             this.$picker.on('change', 'select', function(){
                 self.options.currentYear = $(this).val();
@@ -228,31 +236,22 @@
             // 选择日期
             this.$picker.on('click', '.date', function(){
                 var $month = $(this).closest('.month');
-                if(!self.ctrlPressed) { // 拖拽选日期事件
-                    if(self.isDragging){
-                        $(this).addClass('current end-date');
-                        self.isDragging = false;    // 结束拖选事件
-                        self.$picker.find('.currentRangeFlag').removeClass('currentRangeFlag'); // 移除当前标记
-                        self.mergeRange();
-                    } else {
-                        if(!self.options.multiple){ // 单选
-                            self.unselectAll();
-                        }
-                        $(this).addClass('current start-date');
-                        self.isDragging = true; // 开始拖选事件    
-                        self.$startDate = $(this);
-                    }
-                    self.$picker.find('.month').each(function(){
-                        self.syncMonthState($(this));
-                    })
-                } else {    // ctrl 多选日期
-                    $(this).toggleClass('current');
-                    if(!$(this).is('.current')){
-                        $(this).removeClass('inrange')
-                    }
+                if(self.isDragging){
+                    $(this).addClass('current end-date');
+                    self.isDragging = false;    // 结束拖选事件
+                    self.$picker.find('.currentRangeFlag').removeClass('currentRangeFlag'); // 移除当前标记
                     self.mergeRange();
-                    self.syncMonthState($month);
+                } else {
+                    if(!self.options.multiple){ // 单选
+                        self.unselectAll();
+                    }
+                    $(this).addClass('current start-date');
+                    self.isDragging = true; // 开始拖选事件    
+                    self.$startDate = $(this);
                 }
+                self.$picker.find('.month').each(function(){
+                    self.syncMonthState($(this));
+                })
             });
 
             // 拖拽选日期
@@ -268,11 +267,10 @@
                 }
             })
 
-            // 鼠标划出日历，计算选中
+            // 鼠标在上下边界时，滚动滚动条
             $(document).on('mousemove', function(e){
                 if(!self.isDragging) return;
-
-                // 鼠标在上下边界时，滚动滚动条
+                
                 var $scroll =  self.$picker.find('.scroll');
                 var mousePos = self.getMousePos(e.originalEvent);
                 var pickerPos = self.$picker.offset();
@@ -283,10 +281,34 @@
                 }
             })
 
+            // 右键取消范围段
+            this.$picker.on('contextmenu', '.date, .month', function(){
+                if($(this).is('.month.current')){   // 取消月
+                    $(this).find('.date').removeClass('current inrange start-date end-date');
+                } else if($(this).is('.date.inrange')){    // 取消一段
+                    var $dates;
+                    if(self.options.cancelMode === 'not-cross-month'){
+                        $dates = $(this).closest('.month').find('.date');    // 不跨月份
+                    } else {
+                        $dates = self.$picker.find('.date');    // 跨月份
+                    }
+                    var curIndex = $dates.index(this);
+                    var startIndex = curIndex, endIndex = curIndex, len = $dates.length;
+                    while($dates.eq(startIndex).is('.inrange') && --startIndex >=0);
+                    var $start = $dates.eq(++startIndex);
+                    while($dates.eq(endIndex).is('.inrange') && ++endIndex < len);
+                    var $end = $dates.eq(--endIndex);
+                    $dates.slice(startIndex, endIndex + 1).removeClass('current inrange start-date end-date');
+                }
+                self.mergeRange();
+                self.syncMonthState();
+                return false;
+            })
+
             
         },
         setSize: function(){
-            var pickerHeight = $(window).height() - 50;
+            var pickerHeight = $(window).height() - 100;
             this.$picker.height(pickerHeight);
             this.$picker.find('.scroll').height(pickerHeight - 2 - this.$picker.find('h2').outerHeight(true));
         },
@@ -300,8 +322,14 @@
         }
     }
 
-    new Picker('.test', {
+    new Picker('.test1', {
 
+    })
+    new Picker('.test2', {
+        cancelMode: 'cross-month'
+    })
+    new Picker('.test3', {
+        multiple: false
     })
     </script>
 </body>
