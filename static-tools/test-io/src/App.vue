@@ -1,16 +1,12 @@
 <template>
   <el-container>
-    <el-aside width="200px">
+    <el-aside width="150px">
       <el-menu
         :router="true"
-        default-active="/">
+        :default-active="activeIndex">
         <el-menu-item index="/">
-          <i class="el-icon-menu"></i>
-          <span slot="title">测试页</span>
-        </el-menu-item>
-        <el-menu-item index="/config">
-          <i class="el-icon-setting"></i>
-          <span slot="title">配置页</span>
+          <i class="el-icon-document"></i>
+          <span slot="title">接口测试</span>
         </el-menu-item>
       </el-menu>
     </el-aside>
@@ -28,31 +24,37 @@
 <script>
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import $ from 'jquery';
 import Test from './components/test';
-import Config from './components/config';
 
 Vue.use(VueRouter);
 
-const STORAGE_KEY = 'ifa_data';
 export default {
   name: 'app',
-  components: {
-    Test,
-    Config,
+  data(){
+    return {
+      activeIndex: ''
+    }
   },
   router: new VueRouter({
     routes: [
       {path: '/', component: Test},
       {path: '/test', component: Test},
-      {path: '/config', component: Config},
     ]
-  })
+  }),
+  watch: {
+    $route: {
+      deep: true,
+      immediate: true,
+      handler(to){
+        this.activeIndex = to.path;
+      }
+    }
+  }
 }
 </script>
 <style>
 body{margin:0;padding: 0;}
-.main__wrap{max-height: calc(100vh - 20px);padding: 10px 20px 10px 0;}
+.main__wrap{max-height: calc(100vh - 20px);padding: 10px 20px 10px 10px;}
 </style>
 <style scoped>
 .el-container{height: 100vh;}

@@ -2,13 +2,23 @@
   <div id="test">
     <el-form label-width="120px">
       <el-form-item label="baseUrl">
-        <el-input v-model="baseUrl"></el-input>
+        <el-select 
+          v-model="testInterface.baseUrl" 
+          filterable clearable allow-create 
+          default-first-option 
+          @change="changeSelectOptions(testInterface.baseUrl, baseUrls)" 
+          placeholder="请选择"
+          style="width: 100%;">
+            <el-option
+            v-for="(baseUrl) in baseUrls"
+            :key="baseUrl"
+            :label="baseUrl"
+            :value="baseUrl">
+            </el-option>
+        </el-select>
       </el-form-item>
-    </el-form>
-
-    <el-form label-width="120px">
       <el-form-item label="接口" class="baseItem">
-        <el-select v-model="testInterface" placeholder="请选择">
+        <el-select v-model="testInterfaceName" placeholder="请选择">
           <el-option
             v-for="(item, path) in interfaces"
             :key="path"
@@ -18,27 +28,32 @@
         </el-select>
       </el-form-item>
 
-      <template v-for="(item, path) in interfaces">
-        <div v-if="path === testInterface" :key="path">
-          <el-form-item label="method" class="baseItem">
-            <el-select v-model="item.method" placeholder="请选择">
-              <el-option
-                v-for="(method) in methods"
+        <el-form-item label="method" class="baseItem">
+            <el-select v-model="testInterface.method" filterable clearable allow-create default-first-option @change="changeSelectOptions(testInterface.method, httpMethods)" placeholder="请选择">
+                <el-option
+                v-for="(method) in httpMethods"
                 :key="method"
                 :label="method"
                 :value="method">
-              </el-option>
+                </el-option>
             </el-select>
-          </el-form-item>
-          <el-form-item label="超时" class="baseItem">
-            <el-input v-model="item.timeout"></el-input>
-          </el-form-item>
-          <div class="clear"></div>
-          <el-form-item v-for="(value, key) in item.params" :key="key" :label="key" >
-            <el-input v-model="item.params[key]"></el-input>
-          </el-form-item>
-        </div>
-      </template>
+        </el-form-item>
+        <el-form-item label="超时" class="baseItem">
+            <el-input v-model="testInterface.timeout" class="param"></el-input>
+            <el-button @click.prevent="addParam(testInterface)" type="primary">新增</el-button>
+        </el-form-item>
+        <div class="clear"></div>
+        <el-form-item v-for="(value, key) in testInterface.params" :key="key" :label="key" >
+          <el-input 
+            slot="label" 
+            v-if="testInterface.keyInputVisible === key" 
+            v-model="testInterface.keyInputVal" 
+            @blur="setParamName(testInterface, key)"
+            placeholder="填写键名"></el-input>
+          <div slot="label" v-else @click="showKeyInput(testInterface, key)">{{key}}</div>
+          <el-input v-model="testInterface.params[key]" class="param"></el-input>
+          <el-button @click.prevent="removeParam(testInterface, key)" type="warning">删除</el-button>
+        </el-form-item>
 
       <el-form-item label="result" class="clear">
         <el-input type="textarea" v-model="testResult" rows="25"></el-input>
@@ -51,65 +66,92 @@
 </template>
 
 <script>
+import {getTestPageData, setTestPageData} from '../storage';
+
 import $ from 'jquery';
 
-const STORAGE_KEY = 'ifa_data';
+const defaultParam = {
+  keyInputVisible: '',
+  keyInputVal: '',
+  baseUrl: '',
+  method: 'POST',
+  timeout: 300,
+  params: {}
+}
 export default {
   name: 'test',
   data(){
-    const storage = localStorage.getItem(STORAGE_KEY);
-    const defaultData = {
-      baseUrl: 'http://10.234.195.8:9019/monitor10/api/',
-      testInterface: '',
-      testResult: '',
-      methods: ['GET', 'POST'],
-      interfaces: {
-        getEverydayOpenTimes: {
-          method: 'POST',
-          timeout: 300,
-          params: {
-            month: 8,
-            year: 2018,
-            pageUrl: 'http://home.mi.com/shop/crowdfunding?_rt=weex&pageid=5',
-          }
-        },
-        getTotalOpenTimes: {
-          method: 'POST',
-          timeout: 300,
-          params: {
-            month: 8,
-            year: 2018,
-          }
-        },
-        getPageUrls: {
-          method: 'POST',
-          timeout: 300,
-          params: {
-            month: 8,
-            year: 2018,
-          }
-        },
-        getWeexOpenList: {
-          method: 'POST',
-          timeout: 300,
-          params: {
-            currentPage: 1,
-            pageSize: 10,
-          }
-        },
+    return getTestPageData();
+  },
+  computed: {
+      testInterface(){
+         if(this.testInterfaceName){
+             return this.interfaces[this.testInterfaceName];
+         } else {
+             return {
+               ...defaultParam
+            }
+         }
       }
-    };
-    const data = storage ? JSON.parse(storage) : defaultData;
-    return data;
   },
   methods: {
+    changeSelectOptions(newVal, options){
+        if(!options.includes(newVal)){
+            options.push(newVal);
+        }
+    },
+    removeParam(ifa, param){
+      const newParams = {
+        ...ifa.params
+      }
+      delete newParams[param];
+      ifa.params = newParams;
+    },
+    addParam(ifa){
+      ifa.params = {
+        ...ifa.params,
+        '': ''
+      };
+      this.showKeyInput(ifa, '');
+    },
+    setParamName(ifa, param){
+      if(ifa.keyInputVal == ''){
+        this.$message.error('字段不可为空')
+        return ;
+      }
+      if(ifa.keyInputVal !== param && ifa.keyInputVal in ifa.params){
+        this.$message.error('字段不可重复')
+        return ;
+      }
+      const newParams = {};
+      Object.keys(ifa.params).forEach(key => {
+        if(key === ifa.keyInputVisible){
+          newParams[ifa.keyInputVal] = ifa.params[key];
+        } else {
+          newParams[key] = ifa.params[key];
+        }
+      });
+      ifa.params = newParams;
+      ifa.keyInputVisible = null;
+      ifa.keyInputVal = '';
+    },
+    showKeyInput(ifa, param){
+      ifa.keyInputVisible = param;
+      ifa.keyInputVal = param;
+    },
     callInterface(){
       this.testResult = '';
-      const ifa = this.interfaces[this.testInterface];
+      const ifa = this.testInterface;
+      const data = {};
+      Object.keys(ifa.params).forEach(key => {
+        if(key){
+          data[key] = ifa.params[key];
+        }
+      })
       $.ajax({
         type: ifa.method,
-        url: this.baseUrl + this.testInterface,
-        data: ifa.params,
+        url: ifa.baseUrl + this.testInterfaceName,
+        data: data,
         timeout: ifa.timeout
       })
       .then((result) => {
@@ -124,13 +166,15 @@ export default {
     $data: {
       deep: true,
       handler(){
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(this.$data));
+        setTestPageData(this.$data);
       }
     }
   }
 }
 </script>
 <style scoped>
+.el-form-item{margin-bottom: 10px;}
 .clear{clear:left;}
 .baseItem{float: left;}
+.param{width: calc(100% - 81px);margin-right: 10px;}
 </style>
