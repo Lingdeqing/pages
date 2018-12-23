@@ -20,10 +20,8 @@
       <el-form-item label="接口" class="baseItem">
         <el-select 
           v-model="testInterfaceName" 
-          filterable clearable allow-create 
-          default-first-option 
-          @change="changeInterfaces(testInterfaceName, interfaces)" 
-          placeholder="请输入">
+          filterable clearable allow-create default-first-option 
+          @change="changeInterfaces(testInterfaceName, interfaces)" placeholder="请输入">
             <el-option
               v-for="(item, path) in interfaces"
               :key="path"
@@ -34,7 +32,10 @@
       </el-form-item>
 
         <el-form-item label="method" class="baseItem">
-            <el-select v-model="testInterface.method" filterable clearable allow-create default-first-option @change="changeSelectOptions(testInterface.method, httpMethods)" placeholder="请选择">
+            <el-select 
+              v-model="testInterface.method" 
+              filterable clearable allow-create default-first-option 
+              @change="changeSelectOptions(testInterface.method, httpMethods)" placeholder="请选择">
                 <el-option
                 v-for="(method) in httpMethods"
                 :key="method"
@@ -57,7 +58,18 @@
             autofocus
             placeholder="填写键名"></el-input>
           <div slot="label" v-else @click="showKeyInput(testInterface, key)">{{key}}</div>
-          <el-input v-model="testInterface.params[key]" class="param"></el-input>
+          <!-- <el-input v-model="testInterface.params[key]" class="param"></el-input> -->
+          <el-select 
+            v-model="testInterface.params[key]" 
+            filterable clearable allow-create default-first-option 
+            @change="changeSelectOptions(testInterface.params[key], paramValues[key])" class="param" placeholder="请选择">
+              <el-option
+              v-for="(value) in paramValues[key]"
+              :key="value"
+              :label="value"
+              :value="value">
+              </el-option>
+          </el-select>
           <el-button @click.prevent="removeParam(testInterface, key)" type="warning">删除</el-button>
         </el-form-item>
 
@@ -72,7 +84,7 @@
 </template>
 
 <script>
-import {getTestPageData, setTestPageData} from '../storage';
+import {getTestPageData, setTestPageData, getParamValues} from '../storage';
 
 import $ from 'jquery';
 
