@@ -7,7 +7,7 @@
           filterable clearable allow-create 
           default-first-option 
           @change="changeSelectOptions(testInterface.baseUrl, baseUrls)" 
-          placeholder="请选择"
+          placeholder="请输入"
           style="width: 100%;">
             <el-option
             v-for="(baseUrl) in baseUrls"
@@ -18,13 +18,18 @@
         </el-select>
       </el-form-item>
       <el-form-item label="接口" class="baseItem">
-        <el-select v-model="testInterfaceName" placeholder="请选择">
-          <el-option
-            v-for="(item, path) in interfaces"
-            :key="path"
-            :label="path"
-            :value="path">
-          </el-option>
+        <el-select 
+          v-model="testInterfaceName" 
+          filterable clearable allow-create 
+          default-first-option 
+          @change="changeInterfaces(testInterfaceName, interfaces)" 
+          placeholder="请输入">
+            <el-option
+              v-for="(item, path) in interfaces"
+              :key="path"
+              :label="path"
+              :value="path">
+            </el-option>
         </el-select>
       </el-form-item>
 
@@ -49,6 +54,7 @@
             v-if="testInterface.keyInputVisible === key" 
             v-model="testInterface.keyInputVal" 
             @blur="setParamName(testInterface, key)"
+            autofocus
             placeholder="填写键名"></el-input>
           <div slot="label" v-else @click="showKeyInput(testInterface, key)">{{key}}</div>
           <el-input v-model="testInterface.params[key]" class="param"></el-input>
@@ -56,7 +62,7 @@
         </el-form-item>
 
       <el-form-item label="result" class="clear">
-        <el-input type="textarea" v-model="testResult" rows="25"></el-input>
+        <el-input type="textarea" v-model="testResult" rows="15"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button @click="callInterface" type="primary" :disabled="!testInterface">test</el-button>
@@ -71,7 +77,7 @@ import {getTestPageData, setTestPageData} from '../storage';
 import $ from 'jquery';
 
 const defaultParam = {
-  keyInputVisible: '',
+  keyInputVisible: null,
   keyInputVal: '',
   baseUrl: '',
   method: 'POST',
@@ -100,6 +106,16 @@ export default {
             options.push(newVal);
         }
     },
+    changeInterfaces(newName, interfaces){
+      if(!this.interfaces[newName]){
+        this.interfaces = {
+          ...interfaces,
+          [newName]: {
+            ...defaultParam
+          }
+        }
+      }
+    },
     removeParam(ifa, param){
       const newParams = {
         ...ifa.params
@@ -116,8 +132,7 @@ export default {
     },
     setParamName(ifa, param){
       if(ifa.keyInputVal == ''){
-        this.$message.error('字段不可为空')
-        return ;
+        ifa.keyInputVal = 'newKey'
       }
       if(ifa.keyInputVal !== param && ifa.keyInputVal in ifa.params){
         this.$message.error('字段不可重复')
