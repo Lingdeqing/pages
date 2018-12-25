@@ -25,6 +25,9 @@ let interfaces = {
       params: {
         month: 8,
         year: 2018,
+        pageUrl: '',
+        currentPage: 1,
+        pageSize: 2
       }
     },
     getWeexOpenList: {
@@ -32,6 +35,12 @@ let interfaces = {
       params: {
         currentPage: 1,
         pageSize: 10,
+      }
+    },
+    getOneWeexInfo: {
+      method: 'POST',
+      params: {
+        id: '5b71326b63080092df0d14bb'
       }
     }
 }
