@@ -2,527 +2,478 @@
 <html>
 <head>
 <title>Home</title>
-<!-- for-mobile-apps -->
+<!--mobile apps-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-		function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- //for-mobile-apps -->
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-<link rel="stylesheet" href="css/ken-burns.css" type="text/css" media="all" />
-<link rel="stylesheet" href="css/animate.min.css" type="text/css" media="all" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--mobile apps-->
+<!--Custom Theme files -->
+<link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+<link href="css/style.css" type="text/css" rel="stylesheet" media="all">
+<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/swipebox.css">
+<!-- //Custom Theme files -->
 <!-- js -->
-<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-<!---<link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400,100,100italic,300,300italic,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>--->
-<!-- start-smoth-scrolling -->
-<script type="text/javascript" src="js/move-top.js"></script>
-<script type="text/javascript" src="js/easing.js"></script>
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".scroll").click(function(event){		
-			event.preventDefault();
-			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+<script src="js/jquery-1.11.1.min.js"></script> 
+<!-- //js -->
+<!--web-fonts-->
+<link href='#css?family=Quintessential' rel='stylesheet' type='text/css'>
+<link href='#css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+<!--//web-fonts-->
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+<script src="js/wow.min.js"></script>
+	<script>
+		 new WOW().init();
+	</script>
+<!--//end-animate-->
+<!--ResponsiveTabs-->
+<script src="js/easyResponsiveTabs.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#horizontalTab').easyResponsiveTabs({
+				type: 'default', //Types: default, vertical, accordion           
+				width: 'auto', //auto or any width like 600px
+				fit: true   // 100% fit in a container
+			});
 		});
-	});
+	</script>
+<!--//ResponsiveTabs-->
+<!-- start-smooth-scrolling-->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>	
+<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$(".scroll").click(function(event){		
+				event.preventDefault();
+				$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+			});
+		});
 </script>
-<!-- start-smoth-scrolling -->
+<!--//end-smooth-scrolling-->
 </head>
-	
 <body>
-<!-- header -->
-	<div class="header">
+	<!--banner-->
+	<div  id="home" class="banner">
 		<div class="container">
-			<div class="w3l_header_left">
-				<ul>
-					<li><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> <a href="mailto:info@example.com">info@example.com</a></li>
-					<li><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> (010) 221 918 811</li>
-				</ul>
+			<div class="banner-top">
+				<div class="logo-left">
+					<h1 class="wow swing animated" data-wow-delay=".5s"><a href="index.html">Reallocate</a></h1>
+				</div>
+				<div class="logo-right social-icons wow fadeInRight animated" data-wow-delay=".5s">
+					<ul>
+						<li><a href="#"></a></li>
+						<li><a href="#" class="twitter"></a></li>
+						<li><a href="#" class="google"></a></li>
+						<li><a href="#" class="p"></a></li>
+					</ul>
+				</div>
+				<div class="clearfix"> </div>
 			</div>
-			<div class="w3l_header_right">
-				<ul class="social-icons">
-					<li><a href="#" class="icon icon-border facebook"></a></li>
-					<li><a href="#" class="icon icon-border twitter"></a></li>
-					<li><a href="#" class="icon icon-border instagram"></a></li>
-					<li><a href="#" class="icon icon-border pinterest"></a></li>
+			<div class="top-nav wow fadeInDownBig animated" data-wow-delay=".5s">
+				<span class="menu wow fadeInDownBig animated" data-wow-delay=".5s">Menu</span>	
+				<ul class="nav1">
+					<li class="active"><a href="index.html">Home</a></li>
+					<li><a href="#about" class="scroll">About</a></li>
+					<li><a href="#testimonial" class="scroll">Testimonials</a></li>
+					<li><a href="#gallery" class="scroll">Gallery</a></li>
+					<li><a href="#contact" class="scroll">Contact Us</a></li>
 				</ul>
+				<!-- script-for-menu -->
+				<script>
+				   $( "span.menu" ).click(function() {
+					 $( "ul.nav1" ).slideToggle( 300, function() {
+					 // Animation complete.
+					  });
+					 });
+				</script>
+				<!-- /script-for-menu -->
+			</div>
+			<div class="top-icon wow zoomIn animated" data-wow-delay=".5s"><a href="#welcome" class="scroll"><img src="images/icon1.png" title="Go Down" alt=""/></a></div>
+		</div>
+	</div>
+	<!--//banner-->
+	<!--welcome-->
+	<div class="welcome" id="welcome">
+		<div class="container">
+			<h3 class="title wow fadeInDown animated" data-wow-delay=".5s">Welcome 
+				<br><span class="hdng-bg">***</span>
+			</h3>			
+			<div class="welcome-info">
+				<h4 class="wow fadeInLeft animated" data-wow-delay=".5s">Meet Our largest Production Construction company</h4>			
+				<p class="wel-text wow fadeInRight animated" data-wow-delay=".5s">Nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus omnis optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.</p>			
+				<div class="welcome-row">
+					<div class="col-md-3 welcome-grids wow zoomIn animated" data-wow-delay=".5s">
+						<h5>OUR OBJECTIVE</h5>
+						<p class="text">Lorem ipsum dolor sit amet, consectetur adipi est eligendi scing elit</p>
+						<div class="welcome-icon">
+							<span><i class="glyphicon glyphicon-time"></i> </span>
+						</div>
+					</div>
+					<div class="col-md-3 welcome-grids welcome-mdl wow zoomIn animated" data-wow-delay=".5s">
+						<h5>RESOURCES</h5>
+						<p class="text">Lorem ipsum dolor sit amet, consectetur adipi est eligendi scing elit</p>
+						<div class="welcome-icon">
+							<span><i class="glyphicon glyphicon-road"></i></span>
+						</div>
+					</div>
+					<div class="col-md-3 welcome-grids welcome-mdl1 wow zoomIn animated" data-wow-delay=".5s">
+						<h5>OUR SERVICES</h5>
+						<p class="text">Lorem ipsum dolor sit amet, consectetur adipi est eligendi scing elit</p>
+						<div class="welcome-icon">
+							<span><i class="glyphicon glyphicon-signal"></i></span>
+						</div>
+					</div>
+					<div class="col-md-3 welcome-grids wow zoomIn animated" data-wow-delay=".5s">
+						<h5>TECHNOLOGY</h5>
+						<p class="text">Lorem ipsum dolor sit amet, consectetur adipi est eligendi scing elit</p>
+						<div class="welcome-icon">
+							<span><i class="glyphicon glyphicon-thumbs-up"></i></span>
+						</div>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--//welcome-->
+	<div class="top-icon wow zoomIn animated" data-wow-delay=".5s"><a href="#about-two" class="scroll"><img src="images/icon1.png" title="Go Down" alt=""/></a></div>
+	<!--about-->
+	<div class="about" id="about">
+		<div class="about-row">
+			<div class="col-md-8 about-left about-img1 wow fadeInLeft animated" data-wow-delay=".5s">
+				<section class="slider">
+					<div class="flexslider">
+						<ul class="slides">
+							<li>
+								<div class="about-text">
+									<h5>Our Latest Projects </h5>
+									<p>Dolorem eum fugiat quo voluptas null a Ut enim ad minima veniam, quis nostrum exercitationem.</p>
+								</div>
+							</li>
+							<li>
+								<div class="about-text">
+									<h5>Our Latest Projects </h5>
+									<p>Fugiat quo voluptas null a Ut enim dolorem eum ad minima veniam, quis nostrum exercitationem.</p>
+								</div>
+							</li>
+							<li>
+								<div class="about-text">
+									<h5>Our Latest Projects </h5>
+									<p>Voluptas null dolorem eum fugiat quo a Ut enim ad minima veniam, quis nostrum exercitationem.</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<!--FlexSlider-->
+					<script defer src="js/jquery.flexslider.js"></script>
+					<script type="text/javascript">
+					$(window).load(function(){
+					  $('.flexslider').flexslider({
+						animation: "slide",
+						start: function(slider){
+						  $('body').removeClass('loading');
+						}
+					  });
+					});
+				  </script>
+				<!--End-slider-script-->
+			</div>
+			<div class="col-md-4 about-right wow fadeInRight animated" data-wow-delay=".5s">
+				<div class="about-bottom-text">
+					<h4 class="title1">Lorem ipsum dolor </h4>
+					<p class="text">Lorem ipsum dolor sit amet, consectetur adipi est eligendi scing elit Nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit </p>
+				</div>
+				<div class="about-bottom-grid about-img2">
+				</div>
 			</div>
 			<div class="clearfix"> </div>
 		</div>
-	</div>
-	<div class="header-bottom">
-		<div class="container">
-			<nav class="navbar navbar-default">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				  </button>
-					<div class="logo">
-						<h1><a class="navbar-brand" href="index.html"><span>D</span>omicile</a></h1>
-					</div>
+		<div class="about-row">
+			<div class="col-md-4 about-right wow fadeInLeft animated" data-wow-delay=".5s">
+				<div class="about-bottom-text">
+					<h4 class="title1">Lorem ipsum dolor </h4>
+					<p class="text">Lorem ipsum dolor sit amet, consectetur adipi est eligendi scing elit Nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit </p>
 				</div>
-
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
-					<nav class="cl-effect-1" id="cl-effect-1">
-						<ul class="nav navbar-nav">
-							<li class="active"><a href="index.html">Home</a></li>
-							<li><a href="services.html" class="hvr-bounce-to-bottom">Services</a></li>
-							<li><a href="gallery.html" class="hvr-bounce-to-bottom">Gallery</a></li>
-							<li><a href="short-codes.html" class="hvr-bounce-to-bottom">Short Codes</a></li>
-							<li><a href="mail.html" class="hvr-bounce-to-bottom">Mail Us</a></li>
+				<div class="about-bottom-grid about-img3">
+				</div>
+			</div>
+			<div class="col-md-8 about-left about-img4 wow fadeInRight animated" data-wow-delay=".5s">
+				<section class="slider">
+					<div class="flexslider">
+						<ul class="slides">
+							<li>
+								<div class="about-text">
+									<h5>Our Upcoming Projects </h5>
+									<p>Dolorem eum fugiat quo voluptas null a Ut enim ad minima veniam, quis nostrum exercitationem.</p>
+								</div>
+							</li>
+							<li>
+								<div class="about-text">
+									<h5>Our Upcoming Projects </h5>
+									<p>Fugiat quo voluptas null a Ut enim dolorem eum ad minima veniam, quis nostrum exercitationem.</p>
+								</div>
+							</li>
+							<li>
+								<div class="about-text">
+									<h5>Our Upcoming Projects </h5>
+									<p>Voluptas null dolorem eum fugiat quo a Ut enim ad minima veniam, quis nostrum exercitationem.</p>
+								</div>
+							</li>
 						</ul>
-					</nav>
+					</div>
+				</section>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+		<div class="about-row" id="about-two">
+			<div class="col-md-4 about-left about-img5 wow fadeInLeft animated" data-wow-delay=".5s">
+				<div class="about-img-text">
+					<p class="text">Dolorem eum fugiat quo voluptas null a Ut enim ad minima 
+						veniam, quis nostrum exercitationemItaque earum rerum hic tenetur a sapiente delectus</p>
 				</div>
-				<!-- /.navbar-collapse -->
-			</nav>
-			<div class="w3ls_search">
-				<div class="cd-main-header">
-					<ul class="cd-header-buttons">
-						<li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
-					</ul> <!-- cd-header-buttons -->
+			</div>
+			<div class="col-md-4 about-right wow fadeInLeft animated" data-wow-delay=".5s">
+				<div class="about-bottom-text">
+					<h4 class="title1">Lorem ipsum dolor </h4>
+					<p class="text">Lorem ipsum dolor sit amet, consectetur adipi est eligendi scing elit Nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit </p>
 				</div>
-				<div id="cd-search" class="cd-search">
-					<form action="#" method="post">
-						<input name="Search" type="search" placeholder="Search...">
+				<div class="about-bottom-grid about-img2">
+				</div>
+			</div>
+			<div class="col-md-4 about-left about-img6 wow fadeInRight animated" data-wow-delay=".5s">
+				<div class="about-img-text">
+					<p class="text">voluptas null dolorem eum fugiat quo a Ut enim ad minima 
+						veniam, quis nostrum exercitationemItaque earum rerum hic tenetur a sapiente delectus</p>
+				</div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>		
+	</div>
+	<!--//about-->
+	<div class="top-icon about-top-icon wow zoomIn animated" data-wow-delay=".5s"><a href="#testimonial" class="scroll"><img src="images/icon1.png" title="Go Down" alt=""/></a></div>
+	<!--testimonials-->
+	<div class="testimonials" id="testimonial">
+		<div class="container">
+			<h3 class="title wow fadeInDown animated" data-wow-delay=".5s">People Say About Us
+				<br><span class="hdng-bg">***</span>
+			</h3>
+			<div class="sap_tabs">	
+				<div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
+					<ul class="resp-tabs-list wow slideInLeft animated" data-wow-delay=".5s">
+						<li class="resp-tab-item" aria-controls="tab_item-0"><span><img src="images/img7.jpg" alt=""/></span></li>
+						<li class="resp-tab-item" aria-controls="tab_item-1"><span><img src="images/img8.jpg" alt=""/></span></li>
+						<li class="resp-tab-item" aria-controls="tab_item-2"><span><img src="images/img9.jpg" alt=""/></span></li>
+						<div class="clear"></div>
+					</ul>	
+					<div class="resp-tabs-container wow slideInRight animated" data-wow-delay=".5s">
+						<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">				
+							<div class="view view-first">
+								<h5>Filan Isteku</h5>
+								<p>Donec libero dui, scelerisque ac augue id, tristique ullamcorper elit. Nam ultrices, lacus vitae adipiscing aliquet, metus ipsum imperdiet libero, vitae dignissim sapien diam ac nibh convallis.</p>
+							</div>
+						</div>
+						<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-1">
+							<div class="view view-first">
+								<h5>Ullam Firose </h5>
+								<p>Scelerisque ac augue id Donec libero dui, tristique ullamcorper elit. Nam ultrices, lacus vitae adipiscing aliquet, metus ipsum imperdiet libero, vitae dignissim sapien diam ac nibh convallis.</p>
+							</div>
+						</div>
+						<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-2">
+							<div class="view view-first">
+								<h5>Sque Augue</h5>
+								<p>Nam ultrices lacus vitae adipiscing aliquet, metus ipsum imperdiet libero, vitae dignissim sapientristique Donec libero dui, scelerisque ac augue id,  ullamcorper elit,diam ac nibh convallis.</p>
+							</div>
+						</div>
+					</div>	
+				</div>	
+			</div>		  
+		</div>
+	</div>
+	<!--//testimonials-->
+	<div class="top-icon gallery-top-icon"><a href="#gallery-two" class="scroll wow zoomIn animated" data-wow-delay=".5s"><img src="images/icon1.png" title="Go Down" alt=""/></a></div>
+	<!-- gallery -->
+	<div class="gallery" id="gallery">
+		<div class="container">
+			<h3 class="title">Gallery
+				<br><span class="hdng-bg">***</span>
+			</h3>
+			<div class="gallery-row">
+				<div class="col-md-6 gallery-grids grid">
+					<figure class="effect1 wow zoomIn animated" data-wow-delay=".5s">
+						<a href="images/g1.jpg" class="swipebox" title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus tortor diam, ac lobortis justo rutrum quis. Praesent non purus fermentum, eleifend velit non">
+							<img src="images/g1.jpg" alt="" class="img-responsive" />
+							<figcaption>
+								<h5>Our<span>Gallery</span></h5>
+								<p>At vero eos et accusamus dignissimos ducimus</p>
+							</figcaption>
+						</a>	
+					</figure>
+				</div>
+				<div class="col-md-6 gallery-grids grid">
+					<figure class="effect1 wow zoomIn animated" data-wow-delay=".5s">
+						<a href="images/g2.jpg" class="swipebox" title="Duis maximus tortor diam, ac lobortis justo rutrum quis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non purus fermentum, eleifend velit non">
+							<img src="images/g2.jpg" alt="" class="img-responsive" />
+							<figcaption>
+								<h5>Our<span>Gallery</span></h5>
+								<p>At vero eos et accusamus dignissimos ducimus</p>
+							</figcaption>	
+						</a>	
+					</figure>
+				</div>
+				<div class="col-md-4 gallery-grids gallery-btm grid">
+					<figure class="effect1 wow zoomIn animated" data-wow-delay=".5s">
+						<a href="images/g3.jpg" class="swipebox" title="Duis maximus tortor diam, ac lobortis justo rutrum quis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non purus fermentum, eleifend velit non">
+							<img src="images/g3.jpg" alt="" class="img-responsive" />
+							<figcaption>
+								<h5>Our<span>Gallery</span></h5>
+								<p>At vero eos et accusamus ducimus</p>
+							</figcaption>
+						</a>	
+					</figure>
+				</div>
+				<div class="col-md-4 gallery-grids gallery-btm grid">
+					<figure class="effect1 wow zoomIn animated" data-wow-delay=".5s">
+						<a href="images/g4.jpg" class="swipebox" title="Lorem ipsum dolor sit amet, consectetur adipiscing elit.Duis maximus tortor diam, ac lobortis justo rutrum quis. Praesent non purus fermentum, eleifend velit non">
+							<img src="images/g4.jpg" alt="" class="img-responsive" />
+							<figcaption>
+								<h5>Our<span>Gallery</span></h5>
+								<p>At vero eos et accusamus ducimus</p>
+							</figcaption>	
+						</a>	
+					</figure>
+				</div>
+				<div class="col-md-4 gallery-grids gallery-btm grid">
+					<figure class="effect1 wow zoomIn animated" data-wow-delay=".5s">
+						<a href="images/g5.jpg" class="swipebox" title="Praesent non purus fermentum, eleifend velit non Duis maximus tortor diam, ac lobortis justo rutrum quis. Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
+							<img src="images/g5.jpg" alt="" class="img-responsive" />
+							<figcaption>
+								<h5>Our<span>Gallery</span></h5>
+								<p>At vero eos et accusamus ducimus</p>
+							</figcaption>
+						</a>	
+					</figure>
+				</div>
+				<div class="col-md-6 gallery-grids grid" id="gallery-two">
+					<figure class="effect1 wow zoomIn animated" data-wow-delay=".5s">
+						<a href="images/g6.jpg" class="swipebox" title="Duis maximus tortor diam, ac lobortis justo rutrum quis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non purus fermentum, eleifend velit non">
+							<img src="images/g6.jpg" alt="" class="img-responsive" />
+							<figcaption>
+								<h5>Our<span>Gallery</span></h5>
+								<p>At vero eos et accusamus dignissimos ducimus</p>
+							</figcaption>	
+						</a>	
+					</figure>
+				</div>
+				<div class="col-md-6 gallery-grids grid">
+					<figure class="effect1 wow zoomIn animated" data-wow-delay=".5s">
+						<a href="images/g7.jpg" class="swipebox" title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus tortor diam, ac lobortis justo rutrum quis. Praesent non purus fermentum, eleifend velit non">
+							<img src="images/g7.jpg" alt="" class="img-responsive" />
+							<figcaption>
+								<h5>Our<span>Gallery</span></h5>
+								<p>At vero eos et accusamus dignissimos ducimus</p>
+							</figcaption>	
+						</a>	
+					</figure>
+				</div>
+				<div class="clearfix"> </div>
+				<!-- swipe box js -->
+				<script src="js/jquery.swipebox.min.js"></script> 
+					<script type="text/javascript">
+						jQuery(function($) {
+							$(".swipebox").swipebox();
+						});
+				</script>
+				<!-- //swipe box js -->
+			</div>
+		</div>
+	</div>
+	<!-- //gallery -->
+	<div class="top-icon about-top-icon wow zoomIn animated" data-wow-delay=".5s"><a href="#contact" class="scroll"><img src="images/icon1.png" title="Go Down" alt=""/></a></div>
+	<!-- contact -->		
+	<div class="contact" id="contact">
+		<h3 class="title wow fadeInDown animated" data-wow-delay=".5s">Contact Us
+			<br><span class="hdng-bg">***</span>
+		</h3>
+		<div class="container">
+			<div class="contact-form">
+				<div class="col-md-7 contact-right wow fadeInRight animated" data-wow-delay=".5s">
+					<h5>Miscellaneous information:</h5>
+					<p>Landitiis atque corrupti quos dolores et quas molestias excepturim </p>
+					<form>
+						<input type="text" placeholder="Name" required="">
+						<input class="email" type="text" placeholder="Email" required="">
+						<input type="text" placeholder="Phone" required="">
+						<textarea placeholder="Message" required=""></textarea>
+						<input class="wow zoomIn animated" data-wow-delay=".5s" type="submit" value="SUBMIT" >
+						<input class="wow zoomIn animated" data-wow-delay=".5s" type="reset" value="CLEAR" >
 					</form>
 				</div>
-			</div>
-			<!-- search-jQuery -->
-				<script src="js/main.js"></script>
-			<!-- //search-jQuery -->
-		</div>
-	</div>
-<!-- //header -->
-<!-- banner -->
-	<div class="banner">
-		<div id="kb" class="carousel kb_elastic animate_text kb_wrapper" data-ride="carousel" data-interval="6000" data-pause="hover">
-
-            <!-- Wrapper-for-Slides -->
-            <div class="carousel-inner" role="listbox">
-
-                <!-- First-Slide -->
-                <div class="item active">
-                    <img src="images/banner.jpg" alt="" class="img-responsive" />
-                    <div class="carousel-caption kb_caption">
-                        <h3 data-animation="animated flipInX">Dream Land</h3>
-                        <h4 data-animation="animated flipInX">cupidatat non proident</h4>
-                    </div>
-                </div>
-
-                <!-- Second-Slide -->
-                <div class="item">
-                    <img src="images/banner1.jpg" alt="" class="img-responsive" />
-                    <div class="carousel-caption kb_caption kb_caption_right">
-                        <h3 data-animation="animated flipInX">Dream Home</h3>
-                        <h4 data-animation="animated flipInX">cupidatat non proident</h4>
-                    </div>
-                </div>
-
-                <!-- Third-Slide -->
-                <div class="item">
-                    <img src="images/banner2.jpg" alt="" class="img-responsive" />
-                    <div class="carousel-caption kb_caption kb_caption_center">
-                        <h3 data-animation="animated flipInX">Dream Land</h3>
-                        <h4 data-animation="animated flipInX">cupidatat non proident</h4>
-                    </div>
-                </div>
-
-            </div>
-			
-            <!-- Left-Button -->
-            <a class="left carousel-control kb_control_left" href="#kb" role="button" data-slide="prev">
-				<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-
-            <!-- Right-Button -->
-            <a class="right carousel-control kb_control_right" href="#kb" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-			
-        </div>
-		<script src="js/custom.js"></script>
-	</div>
-<!-- //banner -->
-
-<!-- about -->
-	<div class="about">
-		<div class="container">
-			<h3>We make your dreams as real</h3>
-			<p class="dolor">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-			<div class="about-grids">
-				<div class="col-md-6 about-grid about-one">
-					<div class="about-grid-left">
-						<h4>Magnam aliquam quaerateets</h4>
-						<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+				<div class="col-md-5 contact-left">
+					<div class="address wow fadeInLeft animated" data-wow-delay=".5s">
+						<h5>Address:</h5>
+						<p><i class="glyphicon glyphicon-home"></i> 333 Broome St New York, NY 10002, </p>
 					</div>
-					<div class="about-grid-right">
-						<span class="glyphicon glyphicon-tree-deciduous" aria-hidden="true"></span>
+					<div class="address address-mdl wow fadeInLeft animated" data-wow-delay=".5s">
+						<h5>Phones:</h5>
+						<p><i class="glyphicon glyphicon-earphone"></i> +9900887766</p>
+						<p><i class="glyphicon glyphicon-phone"></i> +11 222 333</p>
 					</div>
-					<div class="clearfix"> </div>
+					<div class="address wow fadeInLeft animated" data-wow-delay=".5s">
+						<h5>Email:</h5>
+						<p><i class="glyphicon glyphicon-envelope"></i> <a href="mailto:info@example.com">mail@example.com</a></p>
+					</div>
 				</div>
-				<div class="col-md-6 about-grid about-one">
-					<div class="about-grid-right aliquam">
-						<span class="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>
-					</div>
-					<div class="about-grid-left non">
-						<h4>Voluptate velit esse cillum</h4>
-						<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-					</div>					
-					<div class="clearfix"> </div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-			<div class="about-grids">
-				<div class="col-md-6 about-grid">
-					<div class="about-grid-left">
-						<h4>Dolore eu fugiat nulla voluptate</h4>
-						<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-					</div>
-					<div class="about-grid-right">
-						<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-				<div class="col-md-6 about-grid">
-					<div class="about-grid-right aliquam">
-						<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-					</div>
-					<div class="about-grid-left non">
-						<h4>Quis nostrum ullam corporis</h4>
-						<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-					</div>					
-					<div class="clearfix"> </div>
-				</div>
-				<div class="clearfix"> </div>
+				<div class="clearfix"></div>
 			</div>
 		</div>
 	</div>
-<!-- //about -->
-
-<!-- about-bottom -->
-	<div class="about-bottom">
-			<div class="col-md-7 agileits_about_bottom_left">
-				<h3>voluptate velit esse cillum dolore eu fugiat</h3>
-				<p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
-					sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. 
-					Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, 
-					adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et 
-					dolore magnam aliquam quaerat voluptatem.</p>
-				<div class="col-xs-4 agileits_about_bottom_left1">
-					<div class="w3_updates_bottom_grid1">
-						<p class="counter">324</p> 
-						<h4>Agents</h4>
-					</div>
-				</div>
-				<div class="col-xs-4 agileits_about_bottom_left1">
-					<div class="w3_updates_bottom_grid1">
-						<p class="counter">232</p> 
-						<h4>Branches</h4>
-					</div>
-				</div>
-				<div class="col-xs-4 agileits_about_bottom_left1">
-					<div class="w3_updates_bottom_grid1">
-						<p class="counter">301</p> 
-						<h4>User Satisfaction</h4>
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-				<!-- Starts-Number-Scroller-Animation-JavaScript -->
-					<script src="js/waypoints.min.js"></script> 
-					<script src="js/counterup.min.js"></script> 
-					<script>
-						jQuery(document).ready(function( $ ) {
-							$('.counter').counterUp({
-								delay: 20,
-								time: 1000
-							});
-						});
-					</script>
-				<!-- //Starts-Number-Scroller-Animation-JavaScript -->
-				<ul>
-					<li>aliquam quaerat voluptatem</li>
-					<li>quia dolor sit amet</li>
-					<li>voluptatem sequi nesciunt</li>
-					<li>tempora incidunt ut labore</li>
-				</ul>
-			</div>
-			<div class="col-md-5 agileits_about_bottom_right">
-				<img src="images/5.jpg" alt=" " class="img-responsive" />
-			</div>
-			<div class="clearfix"> </div>
-	</div>
-<!-- //about-bottom -->
-
-<!-- team -->
-	<div class="team">
+	<!-- //contact -->
+	<!--footer-->
+	<div class="welcome footer">
 		<div class="container">
-			<h3>Our Amazing Team</h3>
-			<p class="dolor">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-			<div class="wthree_team_grids">
-				<div class="col-md-3 wthree_team_grid">
-					<div class="wthree_team_grid1">
-						<div class="hover14 column">
-							<div>
-								<figure><img src="images/1.jpg" alt=" " class="img-responsive" /></figure>
-							</div>
-						</div>
-						<div class="wthree_team_grid1_pos">
-							<h4>David Martin - Agent</h4>
-						</div>
-					</div>
-					<div class="wthree_team_grid2">
-						<ul class="social-icons">
-							<li><a href="#" class="icon icon-border facebook"></a></li>
-							<li><a href="#" class="icon icon-border twitter"></a></li>
-							<li><a href="#" class="icon icon-border instagram"></a></li>
-							<li><a href="#" class="icon icon-border pinterest"></a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md-3 wthree_team_grid">
-					<div class="wthree_team_grid1">
-						<div class="hover14 column">
-							<div>
-								<figure><img src="images/3.jpg" alt=" " class="img-responsive" /></figure>
-							</div>
-						</div>
-						<div class="wthree_team_grid1_pos">
-							<h4>Reena Scot - Agent</h4>
-						</div>
-					</div>
-					<div class="wthree_team_grid2">
-						<ul class="social-icons">
-							<li><a href="#" class="icon icon-border facebook"></a></li>
-							<li><a href="#" class="icon icon-border twitter"></a></li>
-							<li><a href="#" class="icon icon-border instagram"></a></li>
-							<li><a href="#" class="icon icon-border pinterest"></a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md-3 wthree_team_grid">
-					<div class="wthree_team_grid1">
-						<div class="hover14 column">
-							<div>
-								<figure><img src="images/2.jpg" alt=" " class="img-responsive" /></figure>
-							</div>
-						</div>
-						<div class="wthree_team_grid1_pos">
-							<h4>Rabecca Ali - Agent</h4>
-						</div>
-					</div>
-					<div class="wthree_team_grid2">
-						<ul class="social-icons">
-							<li><a href="#" class="icon icon-border facebook"></a></li>
-							<li><a href="#" class="icon icon-border twitter"></a></li>
-							<li><a href="#" class="icon icon-border instagram"></a></li>
-							<li><a href="#" class="icon icon-border pinterest"></a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md-3 wthree_team_grid">
-					<div class="wthree_team_grid1">
-						<div class="hover14 column">
-							<div>
-								<figure><img src="images/4.jpg" alt=" " class="img-responsive" /></figure>
-							</div>
-						</div>
-						<div class="wthree_team_grid1_pos">
-							<h4>Rosy Carl - Agent</h4>
-						</div>
-					</div>
-					<div class="wthree_team_grid2">
-						<ul class="social-icons">
-							<li><a href="#" class="icon icon-border facebook"></a></li>
-							<li><a href="#" class="icon icon-border twitter"></a></li>
-							<li><a href="#" class="icon icon-border instagram"></a></li>
-							<li><a href="#" class="icon icon-border pinterest"></a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="clearfix"> </div>
+			<div class="col-md-4 footer-grids wow fadeInLeft animated" data-wow-delay=".5s">
+				<h3>About :</h3>
+				<p>Sed ut turpis elit ullamcorper in auctor non, accumsan vel lacus nulla auctor cursus nunc. Maecenas ultricies dolor in urna tempus, id egestas erat finibus  interdum lectus eget scelerisque.</p>
 			</div>
-		</div>
-	</div>
-<!-- //team -->
-<!-- newsletter -->
-	<div class="newsletter">
-		<div class="container">
-			<h3>Subscribe to our newsletter</h3>
-			<p class="dolor your">Enter your email address and we'll contact you.</p>
-			<div class="agileits_newsletter_grids">
-				<form action="#" method="post">
-					<input type="email" value="Email" name="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
-					<input type="submit" value=" ">
+			<div class="col-md-4 footer-grids wow fadeInRight animated" data-wow-delay=".5s">
+				<h3>Newsletter :</h3>
+				<form>
+					<input type="text" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+					<input type="submit" value="Submit">
 				</form>
 			</div>
-		</div>
-	</div>
-<!-- //newsletter -->
-<!-- agile_testimonials -->
-	<div class="testimonials">
-		<div class="container">
-			<h3>Our Customers Says</h3>
-			<p class="dolor">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-			<div class="agile_testimonials_grids">
-				<ul id="flexiselDemo1">			
-					<li>
-						<div class="agile_testimonials_grid">
-							<div class="agile_testimonials_grid1">
-								<div class="rating">
-									<span class="star">☆</span>
-									<span class="star">☆</span>
-									<span class="star">☆</span>
-									<span>☆</span>
-									<span>☆</span>
-								</div>
-								<p>Itaque earum rerum hic tenetur a sapiente delectus rerum hic tenetur.<span>Lina Richard</span></p>
-							</div>
-							<img src="images/2.png" alt=" " class="img-responsive" />
-						</div>
-					</li>
-					<li>
-						<div class="agile_testimonials_grid">
-							<div class="agile_testimonials_grid1">
-								<div class="rating">
-									<span class="star">☆</span>
-									<span class="star">☆</span>
-									<span>☆</span>
-									<span>☆</span>
-									<span>☆</span>
-								</div>
-								<p>Itaque earum rerum hic tenetur a sapiente delectus rerum hic tenetur.<span>Andrew Crisp</span></p>
-							</div>
-							<img src="images/1.png" alt=" " class="img-responsive" />
-						</div>
-					</li>
-					<li>
-						<div class="agile_testimonials_grid">
-							<div class="agile_testimonials_grid1">
-								<div class="rating">
-									<span class="star">☆</span>
-									<span class="star">☆</span>
-									<span class="star">☆</span>
-									<span>☆</span>
-									<span>☆</span>
-								</div>
-								<p>Itaque earum rerum hic tenetur a sapiente delectus rerum hic tenetur.<span>Joshi Fransis</span></p>
-							</div>
-							<img src="images/3.png" alt=" " class="img-responsive" />
-						</div>
-					</li>
-				</ul>
-					<script type="text/javascript">
-							$(window).load(function() {
-								$("#flexiselDemo1").flexisel({
-									visibleItems:3,
-									animationSpeed: 1000,
-									autoPlay: true,
-									autoPlaySpeed: 3000,    		
-									pauseOnHover: true,
-									enableResponsiveBreakpoints: true,
-									responsiveBreakpoints: { 
-										portrait: { 
-											changePoint:480,
-											visibleItems: 1
-										}, 
-										landscape: { 
-											changePoint:640,
-											visibleItems:1
-										},
-										tablet: { 
-											changePoint:768,
-											visibleItems: 2
-										}
-									}
-								});
-								
-							});
-					</script>
-					<script type="text/javascript" src="js/jquery.flexisel.js"></script>
+			<div class="col-md-4 footer-grids wow fadeInLeft animated" data-wow-delay=".5s">
+				<h3>Copyright :</h3>
+				<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://guantaow.taobao.com/">厚朴网络淘宝店</a><a target="_blank" href="http://www.moobnn.com">网页模板</a></p>
 			</div>
+			<div class="clearfix"> </div>
 		</div>
 	</div>
-<!-- //agile_testimonials -->
-<!-- footer -->
-	<div class="footer">
-		<div class="container">
-			<div class="w3agile_footer_grids">
-				<div class="col-md-4 agileinfo_footer_grid">
-					<div class="footer-logo">
-						<h2><a href="index.html"><i>D</i>omicile <span>We are professional in our service</span></a></h2>
-					</div>
-				</div>
-				<div class="col-md-3 agileinfo_footer_grid">
-					<h4>Call Us <span>+1234 567 891</span></h4>
-					<p>My Company, 875 Jewel Road <span>8907 Ukraine.</span></p>
-					<ul class="social-icons">
-						<li><a href="#" class="icon icon-border facebook"></a></li>
-						<li><a href="#" class="icon icon-border twitter"></a></li>
-						<li><a href="#" class="icon icon-border instagram"></a></li>
-						<li><a href="#" class="icon icon-border pinterest"></a></li>
-					</ul>
-				</div>
-				<div class="col-md-2 agileinfo_footer_grid agileinfo_footer_grid1">
-					<ul>
-						<li><a href="index.html">Home</a></li>
-						<li><a href="services.html">Services</a></li>
-						<li><a href="gallery.html">Gallery</a></li>
-						<li><a href="mail.html">Contact Us</a></li>
-					</ul>
-				</div>
-				<div class="col-md-3 agileinfo_footer_grid">
-					<div class="agileinfo_footer_grid_left">
-						<a href="single.html"><img src="images/6.jpg" alt=" " class="img-responsive" /></a>
-					</div>
-					<div class="agileinfo_footer_grid_left">
-						<a href="single.html"><img src="images/9.jpg" alt=" " class="img-responsive" /></a>
-					</div>
-					<div class="agileinfo_footer_grid_left">
-						<a href="single.html"><img src="images/8.jpg" alt=" " class="img-responsive" /></a>
-					</div>
-					<div class="agileinfo_footer_grid_left">
-						<a href="single.html"><img src="images/7.jpg" alt=" " class="img-responsive" /></a>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-		</div>
-	</div>
-	<div class="footer-copy">
-		<div class="container">
-			<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://guantaow.taobao.com/">厚朴网络淘宝店</a><a target="_blank" href="http://www.moobnn.com">网页模板</a></p>
-		</div>
-	</div>
-<!-- //footer -->
-<!-- for bootstrap working -->
-	<script src="js/bootstrap.js"></script>
-<!-- //for bootstrap working -->
-<!-- here stars scrolling icon -->
+	<!--//footer-->
+	<!--smooth-scrolling-of-move-up-->
 	<script type="text/javascript">
 		$(document).ready(function() {
 			/*
-				var defaults = {
+			var defaults = {
 				containerID: 'toTop', // fading element id
 				containerHoverID: 'toTopHover', // fading element hover id
 				scrollSpeed: 1200,
 				easingType: 'linear' 
-				};
+			};
 			*/
-								
+			
 			$().UItoTop({ easingType: 'easeOutQuart' });
-								
-			});
+			
+		});
 	</script>
-<!-- //here ends scrolling icon -->
+	<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+	<!--//smooth-scrolling-of-move-up-->
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/bootstrap.js"></script>
 </body>
 </html>
